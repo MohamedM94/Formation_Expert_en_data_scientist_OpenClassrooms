@@ -1,0 +1,28 @@
+WITH Date_ref AS (
+    SELECT max(order_purchase_timestamp) 
+      FROM orders
+),
+orders_items_join AS (
+    SELECT DISTINCT items.order_id,
+                    items.seller_id,
+                    ord.order_purchase_timestamp
+      FROM orders AS ord
+           INNER JOIN
+           order_items AS items ON ord.order_id = items.order_id
+     WHERE ord.order_status = 'delivered'
+),
+regroupe AS (
+    SELECT seller_id,
+           COUNT(order_id) AS Nb_produit,
+           min(order_purchase_timestamp) AS date_min
+      FROM orders_items_join
+     GROUP BY seller_id
+    HAVING date_min > DATE( (
+                                SELECT *
+                                  FROM Date_ref
+                            ), '-3 months') 
+     ORDER BY Nb_produit
+)
+SELECT *
+  FROM regroupe
+ WHERE Nb_produit > 30;

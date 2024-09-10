@@ -1,0 +1,16 @@
+WITH Orders__items_join AS (
+    SELECT DISTINCT items.price,
+                    items.order_id,
+                    items.seller_id
+      FROM orders AS ord
+           INNER JOIN
+           order_items AS items ON ord.order_id = items.order_id
+     WHERE order_status = 'delivered'
+     ORDER BY seller_id
+)
+SELECT seller_id,
+       sum(price) AS Revenue
+  FROM Orders__items_join
+ GROUP BY seller_id
+HAVING Revenue > 100000
+ ORDER BY Revenue DESC;

@@ -1,0 +1,14 @@
+WITH Datet_ref AS (
+    SELECT max(order_purchase_timestamp) 
+      FROM orders
+)
+SELECT *,
+       JULIANDAY(order_delivered_customer_date) - JULIANDAY(order_estimated_delivery_date) AS date_delivery_retard,
+       DATE( (
+                 SELECT *
+                   FROM Datet_ref
+             ), '-3 months') AS date_recent
+  FROM orders
+ WHERE order_status != 'canceled' AND 
+       order_purchase_timestamp >= date_recent AND 
+       date_delivery_retard >= 3;

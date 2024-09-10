@@ -1,0 +1,30 @@
+WITH Date_ref AS (
+    SELECT max(order_purchase_timestamp) 
+      FROM orders
+),
+join_orders_geoloc AS (
+    SELECT DISTINCT cus.customer_zip_code_prefix,
+                    ord.order_id,
+                    ord.order_purchase_timestamp
+      FROM orders AS ord
+           INNER JOIN
+           customers AS cus ON ord.customer_id = cus.customer_id
+),
+avg_review_score AS (
+    SELECT customer_zip_code_prefix,
+           AVG(review_score) AS Avg_review_score,
+           COUNT(review_score) AS Nb_reviews_score
+      FROM order_reviews AS rev
+           INNER JOIN
+           join_orders_geoloc AS geo ON rev.order_id = geo.order_id
+     WHERE order_purchase_timestamp >= DATE( (
+                                                 SELECT *
+                                                   FROM Date_ref
+                                             ), '-12 month') 
+     GROUP BY customer_zip_code_prefix
+)
+SELECT *
+  FROM avg_review_score
+ WHERE Nb_reviews_score > 30
+ ORDER BY Avg_review_score
+ LIMIT 5;
