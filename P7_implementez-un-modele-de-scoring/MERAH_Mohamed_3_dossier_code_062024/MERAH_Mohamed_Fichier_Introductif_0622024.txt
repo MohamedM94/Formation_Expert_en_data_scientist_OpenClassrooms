@@ -1,0 +1,78 @@
+
+Mission
+
+Prêt à dépenser, une société financière spécialisée dans les crédits à la consommation pour des individus sans historique de prêt, souhaite développer un outil de "scoring crédit" pour calculer la probabilité qu’un client rembourse son crédit.
+
+L'objectif est de prédire la probabilité de remboursement d'un client et de classifier les demandes en crédit accordé ou refusé en utilisant un algorithme de classification.
+
+La mission implique :
+
+    1)Mise en œuvre d'une démarche MLOps en utilisant des outils Open Source :
+        -MLFlow : tracking d'expérimentations, stockage centralisé.
+        -Git : gestion de code.
+        -Github : partage de code.
+        -Github Actions : Déploiement de l'API de manière continue.
+        -Pytest : tests unitaires.
+        -Evidently : Data drift en production.
+    2)Construction du modèle de scoring :
+        -Prise en compte du déséquilibre des classes et du coût métier entre faux négatifs et faux positifs.
+        -Optimisation des hyperparamètres.
+        -Analyse des features qui contribuent le plus au modèle (feature importance locale et globale).
+    3)Mise en production du Modèle de scoring :
+        -Déploiement de l'API sur une plateforme Cloud (Azure ou autre)
+        - Interface de test en utilisant Streamlit
+
+Ce repository est axé sur la prédiction de la probabilité qu'un client présente concernant son incapacité à rembourser son prêt. Il est structuré comme suit :
+
+- MERAH_Mohamed_1_APP_FastAPI_062024   : Script à exécuter pour démarrer FastAPI.
+- MERAH_Mohamed_1_APP_Streamlit_062024 : Script à exécuter pour démarrer App Streamlit.
+- MERAH__Mohamed_5_test_API_062024 : Script à exécuter pour démarrer test Unitaire.
+
+- MERAH_Mohamed_3_dossier_code_052024 : Dossier renfermant plusieurs éléments essentiels :
+	- Fichier Introductif.txt : Texte décrivant la structure du dépôt.
+	- Scripts : Inclut les fichiers 
+                       - MERAH_Mohamed_1_APP_FastAPI_062024.py 
+                       - MERAH_Mohamed_1_APP_Streamlit_062024.py
+                       - MERAH__Mohamed_5_test_API_062024
+                       - MERAH_Mohamed_4_Tableau_HTML_data_drift_evidently_062024.html
+                       - credentials.toml
+                       - config.toml
+                       - Dockerfile
+                       - model_LGBM.pkl
+                       - requirements.txt
+                       - Dockerfile
+
+ - le fichier Dockerfile permet de configurer l'environnement de l'application jusqu'à son exécution  
+ - La librairie Streamlit nécessite des fichiers spécifiques permettant de configurer l'accès au Port de l'API    
+   depuis le monde extérieur. Pour cela, nous devons créer deux fichiers TOML : config.toml et credential.toml.
+-  un fichier requirements.txt qui liste l'ensemble des librairies utilisées pour faire fonctionner notre   
+   application    
+-  Data-drift : Intègre le script pour évaluer le Data-Drift avec evidently et un fichier HTML présentant les   
+   résultats de cette analyse.
+- MERAH__Mohamed_5_test_API_062024 :script pour des tests unitaires
+   
+- MERAH_Mohamed_3_note_méthodologique_062024.pdf : Document expliquant en profondeur la démarche adoptée pour    
+  réaliser ce projet.
+
+- MERAH_Mohamed_6_presentation_062024.pptx : Présente le diaporama PowerPoint du projet.
+
+- main_mohamedcreditp7.yml : script pour configurer l'environnement d'exécution de l'application via https://mohamedcreditp7.azurewebsites.net/
+
+
+Outils Open Source pour élaborer une plateforme MLOps :
+ ● MLFlow pour la gestion “d’expériences” et leur tracking lors de la
+ phase d’entraînement des modèles, ainsi que la visualisation des
+ résultats avec MLFlow UI, pour le partager avec Chris
+ ● MLFlow pour le stockage centralisé des modèles dans un “model
+ registry” et le serving
+ ● Git, logiciel de version de code, pour suivre les modifications du
+ code final de l’API de prédiction de tags à déployer
+ ● Github pour stocker et partager sur le cloud le code de l’API,
+ alimenté par un “push” Git et ainsi assurer une intégration continue
+ ● Github Actions pour le déploiement continu et automatisé du code
+ de l’API sur le cloud
+ ● Pytest (ou Unittest) pour concevoir les tests unitaires et les
+ exécuter de manière automatisée lors du build réalisé par Github
+ ActionS
+
+
